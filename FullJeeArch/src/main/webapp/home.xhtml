@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <p>This quickstart demonstrates how we can use a default Identity Management configuration using a FileBasedIdentityStore, to implement simple authentication</p>
+
+    <ui:fragment rendered="#{identity.loggedIn}">
+        <div>Congratulations! You are currently logged in as: <b>#{identity.account.loginName}</b></div>
+
+        <h:form>
+            <h:commandButton id="logout" value="Log out" action="#{identity.logout}"/>
+        </h:form>
+    </ui:fragment>
+
+    <h:form id="loginForm" rendered="#{not identity.loggedIn}">
+        <h:messages globalOnly="true"/>
+
+        <div class="loginRow">
+            <h:outputLabel for="name" value="Username" styleClass="loginLabel"/>
+            <h:inputText id="name" value="#{loginCredentials.userId}"/>
+        </div>
+
+        <div class="loginRow">
+            <h:outputLabel for="password" value="Password" styleClass="loginLabel"/>
+            <h:inputSecret id="password" value="#{loginCredentials.password}" redisplay="true"/>
+        </div>
+
+        <div class="loginRow">
+
+        </div>
+
+        <div class="buttons">
+            <h:commandButton id="login" value="Login" action="#{authenticationBean.login}" styleClass="loginButton"/>
+        </div>
+
+        Tip: you can login with a username/password of jane/abcd1234.
+
+    </h:form>
+
+    <br style="clear:both"/>
+
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com"
+             xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
+
+    <!-- -Xms128m -Xmx512m -Dportalreservas.root=/home/arthur/Documentos/workspaces/fpti/turismo/portal-reservas/trunk/PortalReservas -->
+        
+    <classpath>
+        <dir name="${portalreservas.root}/target/classes"/>
+    </classpath>
+    <web>
+        <link target="/">
+            <dir name="${portalreservas.root}/src/main/webapp"/>
+            <dir name="${portalreservas.root}/src/main/resources"/>
+        </link>
+    </web>  
+</application>  

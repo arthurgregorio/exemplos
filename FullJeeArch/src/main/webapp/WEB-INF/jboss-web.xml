@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+  <!-- configuramos o nome final do contexto na URL -->
+  <context-root>/FullJeeArch</context-root>
+</jboss-web>
