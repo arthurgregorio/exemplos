@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <h:head>
+        <title>Crud JSF</title>
+    </h:head>
+    <h:body>
+        <h2>Selecione uma opção</h2>
+        
+        <h:form prependId="false">
+            <h3>Manter proprietarios</h3>
+            <ul>
+                <li>
+                    <h:commandLink value="Listar/Deletar" 
+                                   action="/proprietario/listarOuDeletar.xhtml" />
+                </li>
+                <li>
+                    <h:commandLink value="Inserir" 
+                                   action="/proprietario/inserir.xhtml" />
+                </li>
+                <li>
+                    <h:commandLink value="Editar"
+                                   action="/proprietario/editar.xhtml" />
+                </li>
+            </ul>
+
+            <h3>Manter carros</h3>
+            <ul>
+                <li>
+                    <h:commandLink value="Listar/Deletar" 
+                                   action="/carro/listarOuDeletar.xhtml" />
+                </li>
+                <li>
+                    <h:commandLink value="Inserir" 
+                                   action="/carro/inserir.xhtml" />
+                </li>
+                <li>
+                    <h:commandLink value="Editar"
+                                   action="/carro/editar.xhtml" />
+                </li>
+            </ul>
+        </h:form>
+    </h:body>
+</html>
+
