@@ -39,15 +39,19 @@ public class CarroBean implements Serializable {
     
     /**
      * 
-     * @param carroId 
+     * @param carroId
+     * @param deletar 
      */
-    public void inicializar(long carroId) {
+    public void inicializar(long carroId, boolean deletar) {
         
         this.proprietarios = this.proprietarioService.listarTodos();
         
         if (carroId == 0) {
             this.carro = new Carro();
             this.state = EstadoTela.INSERINDO;
+        } else if (deletar) {
+            this.state = EstadoTela.DELETANDO;
+            this.carro = this.carroService.buscarPorId(carroId);
         } else {
             this.state = EstadoTela.EDITANDO;
             this.carro = this.carroService.buscarPorId(carroId);
@@ -61,6 +65,16 @@ public class CarroBean implements Serializable {
         this.carroService.salvar(this.carro);
         this.carro = null;
         this.facesContext.addMessage(null, new FacesMessage("Carro salvo!", null));
+    }
+    
+    /**
+     * Deleta
+     * 
+     * @return e volta
+     */
+    public String deletar() {
+        this.carroService.remover(this.carro);
+        return "/index.xhtml?faces-redirect=true";
     }
 
     public Carro getCarro() {

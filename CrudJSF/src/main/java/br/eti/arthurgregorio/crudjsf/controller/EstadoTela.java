@@ -10,5 +10,5 @@ package br.eti.arthurgregorio.crudjsf.controller;
  */
 public enum EstadoTela {
 
-    INSERINDO, EDITANDO;
+    INSERINDO, EDITANDO, DELETANDO;
 }

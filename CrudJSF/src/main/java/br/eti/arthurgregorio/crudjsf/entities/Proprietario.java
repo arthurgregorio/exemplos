@@ -1,15 +1,13 @@
 package br.eti.arthurgregorio.crudjsf.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.metamodel.SingularAttribute;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -26,16 +24,37 @@ public class Proprietario implements Serializable, IConvertableEntity<Long> {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull(message = "Informe uma nome!")
     @Column(name = "nome", nullable = false)
     private String nome;
-    
-    /**
-     * Metamodel
-     */
-    @Transient
-    public static volatile SingularAttribute<Proprietario, Long> ID;
 
+    /**
+     * Implementacao porca de equals somente para o converter funcionar...
+     * 
+     * Se for usar isso, faca de um jeito descente ou useo lombok
+     * 
+     * @param object
+     * @return 
+     */
+    @Override
+    public boolean equals(Object object) {
+       if (object.getClass().isAssignableFrom(this.getClass())) {
+           return ((Proprietario) object).getId().equals(this.getId());
+       }
+       return false;
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        hash = 73 * hash + Objects.hashCode(this.nome);
+        return hash;
+    }
+    
     /**
      * 
      * @return 

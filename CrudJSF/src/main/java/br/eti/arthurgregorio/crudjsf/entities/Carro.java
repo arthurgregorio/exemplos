@@ -9,9 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.metamodel.SingularAttribute;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -29,19 +26,11 @@ public class Carro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "placa")
-    @NotNull(message = "Informe uma placa!")
     private String placa;
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_proprietario")
-    @NotNull(message = "Informe um proprietario")
     private Proprietario proprietario;
-
-    /**
-     * Metamodel
-     */
-    @Transient
-    public static volatile SingularAttribute<Carro, Long> ID;
     
     /**
      * @return the id

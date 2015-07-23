@@ -7,38 +7,42 @@
 
     <h:head>
         <title>Crud JSF - Carros</title>
-        
+
         <f:metadata>
-            <f:viewAction action="#{carroBean.inicializar(param.carroId)}"/>
+            <f:viewAction action="#{carroBean.inicializar(param.carroId, param.deletar)}"/>
         </f:metadata>
     </h:head>
-    
+
     <h:body>
         <h:form id="carroForm" prependId="false">
-            
+
             <h3 jsf:rendered="#{carroBean.state eq 'INSERINDO'}">
                 Inserir Carro
             </h3>
             <h3 jsf:rendered="#{carroBean.state eq 'EDITANDO'}">
                 Editar Carro
             </h3>
+            <h3 style="color: red"
+                jsf:rendered="#{carroBean.state eq 'DELETANDO'}">
+                Deletar Carro
+            </h3>
 
             <h:messages id="mensagens" />
-            
+
             <h:panelGrid columns="2">
-                <div jsf:rendered="#{carroBean.state eq 'EDITANDO'}">
-                    <h:outputLabel for="inId" 
-                                   value="Id:" />
-                    <h:inputText id="inId"
-                                 readonly="true"
-                                 value="#{carroBean.carro.id}" />
-                </div>
+                <h:outputLabel for="inId" 
+                               value="Id:" 
+                               rendered="#{carroBean.state eq 'EDITANDO'}"/>
+                <h:inputText id="inId"
+                             readonly="true"
+                             value="#{carroBean.carro.id}"
+                             rendered="#{carroBean.state eq 'EDITANDO'}"/>
 
                 <h:outputLabel for="inPlaca" 
                                value="Placa:" />
                 <h:inputText id="inPlaca"
                              value="#{carroBean.carro.placa}" />
-                
+
                 <h:outputLabel for="inProprietario" 
                                value="Proprietario:" />
                 <h:selectOneMenu converter="entityConverter"
@@ -50,12 +54,18 @@
                                    itemLabel="#{proprietario.nome}"
                                    value="#{carroBean.proprietarios}"/>
                 </h:selectOneMenu>
-                
-                <h:commandButton value="Cadastrar"
-                                 actionListener="#{carroBean.salvar()}">
+
+                <h:commandButton value="Salvar"
+                                 actionListener="#{carroBean.salvar()}"
+                                 rendered="#{carroBean.state ne 'DELETANDO'}">
                     <f:ajax execute="carroForm" render="carroForm mensagens" />
                 </h:commandButton>
-                
+                <h:commandButton value="Deletar"
+                                 action="#{carroBean.deletar()}"
+                                 rendered="#{carroBean.state eq 'DELETANDO'}">
+                    <f:ajax execute="carroForm" render="carroForm mensagens" />
+                </h:commandButton>
+
                 <h:button value="Voltar" outcome="/index.xhtml"/>
             </h:panelGrid>
         </h:form>

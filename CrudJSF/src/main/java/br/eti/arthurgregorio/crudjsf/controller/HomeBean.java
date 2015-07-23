@@ -48,11 +48,29 @@ public class HomeBean implements Serializable {
     
     /**
      * 
+     * @param carroId
+     * @return 
+     */
+    public String deletarCarro(long carroId) {
+        return "carro/formCarro.xhtml?faces-redirect=true&carroId=" + carroId + "&deletar=true";
+    }
+    
+    /**
+     * 
      * @param proprietarioId
      * @return 
      */
     public String editarProprietario(long proprietarioId) {
-        return "proprietario/formProprietario.xhtml?faces-redirect=true&carroId=" + proprietarioId;
+        return "proprietario/formProprietario.xhtml?faces-redirect=true&proprietarioId=" + proprietarioId;
+    }
+    
+    /**
+     * 
+     * @param proprietarioId
+     * @return 
+     */
+    public String deletarProprietario(long proprietarioId) {
+        return "proprietario/formProprietario.xhtml?faces-redirect=true&proprietarioId=" + proprietarioId + "&deletar=true";
     }
 
     public List<Carro> getCarros() {

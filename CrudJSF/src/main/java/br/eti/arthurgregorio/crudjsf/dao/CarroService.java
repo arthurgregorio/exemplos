@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
@@ -70,15 +71,17 @@ public class CarroService {
 
         final CriteriaBuilder builder = this.getBuilder();
 
-        final CriteriaQuery criteria = builder.createQuery(Carro.class);
-
+        final CriteriaQuery<Carro> criteria = builder.createQuery(Carro.class);
         final Root<Carro> root = criteria.from(Carro.class);
 
-        criteria.select(criteria
-                .from(Carro.class))
-                .where(builder.equal(root.get(Carro.ID), carroId));
+        final ParameterExpression<Long> parameter = builder.parameter(Long.class);
+        
+        criteria.select(root)
+                .where(builder.equal(root.get("id"), parameter));
 
         final TypedQuery<Carro> query = this.entityManager.createQuery(criteria);
+        
+        query.setParameter(parameter, carroId);
 
         return query.getSingleResult();
     }

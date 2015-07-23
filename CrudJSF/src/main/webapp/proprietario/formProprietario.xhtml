@@ -7,42 +7,53 @@
 
     <h:head>
         <title>Crud JSF - Proprietarios</title>
-        
+
         <f:metadata>
-            <f:viewAction action="#{proprietarioBean.inicializar(param.proprietarioId)}"/>
+            <f:viewAction action="#{proprietarioBean.inicializar(param.proprietarioId, param.deletar)}"/>
         </f:metadata>
     </h:head>
-    
+
     <h:body>
         <h:form id="proprietarioForm" prependId="false">
-            
+
             <h3 jsf:rendered="#{proprietarioBean.state eq 'INSERINDO'}">
                 Inserir Proprietario
             </h3>
             <h3 jsf:rendered="#{proprietarioBean.state eq 'EDITANDO'}">
                 Editar Proprietario
             </h3>
+            <h3 style="color: red"
+                jsf:rendered="#{proprietarioBean.state eq 'DELETANDO'}">
+                Deletar Proprietario
+            </h3>
 
             <h:messages id="mensagens" />
-            
+
             <h:panelGrid columns="2">
-                <div jsf:rendered="#{proprietarioBean.state eq 'EDITANDO'}">
-                    <h:outputLabel for="inId" 
-                                   value="Id:" />
-                    <h:inputText id="inId"
-                                 value="#{proprietarioBean.proprietario.id}" />
-                </div>
+                <h:outputLabel for="inId" 
+                               value="Id:" 
+                               rendered="#{proprietarioBean.state ne 'INSERINDO'}"/>
+                <h:inputText id="inId"
+                             readonly="true"
+                             value="#{proprietarioBean.proprietario.id}" 
+                             rendered="#{proprietarioBean.state ne 'INSERINDO'}"/>
 
                 <h:outputLabel for="inNome" 
                                value="Nome:" />
-                <h:inputText id="inPlaca"
+                <h:inputText id="inNome"
                              value="#{proprietarioBean.proprietario.nome}" />
-                
-                <h:commandButton value="Cadastrar"
-                                 actionListener="#{proprietarioBean.salvar()}">
+
+                <h:commandButton value="Salvar"
+                                 actionListener="#{proprietarioBean.salvar()}"
+                                 rendered="#{proprietarioBean.state ne 'DELETANDO'}">
                     <f:ajax execute="proprietarioForm" render="proprietarioForm mensagens" />
                 </h:commandButton>
-                
+                <h:commandButton value="Deletar"
+                                 action="#{proprietarioBean.deletar()}"
+                                 rendered="#{proprietarioBean.state eq 'DELETANDO'}">
+                    <f:ajax execute="proprietarioForm" render="proprietarioForm mensagens" />
+                </h:commandButton>
+
                 <h:button value="Voltar" outcome="/index.xhtml"/>
             </h:panelGrid>
         </h:form>
