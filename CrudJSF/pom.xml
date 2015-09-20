@@ -48,6 +48,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.36</version>
         </dependency>
+        
+        <!-- primefaces -->
+        <dependency>
+            <groupId>org.primefaces</groupId>  
+            <artifactId>primefaces</artifactId>  
+            <version>5.2</version>  
+        </dependency>
     </dependencies>
 
     <build>
