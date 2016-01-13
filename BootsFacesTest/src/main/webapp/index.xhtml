@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -10,12 +12,25 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 
-        <h:outputStylesheet library="bootstrap" name="css/bootstrap.min.css"/>
-        <h:outputStylesheet library="app" name="css/adminlte.min.css"/>
+        <h:outputStylesheet library="bootstrap" name="css/bootstrap.css"/>
+        <h:outputStylesheet library="app" name="css/adminlte.css"/>
         <h:outputStylesheet library="app" name="css/skin-blue.min.css"/>
+
+        <!--seta as opcoes da template-->
+        <script type="text/javascript">
+            var AdminLTEOptions = {
+                sidebarExpandOnHover: true,
+                screenSizes: {
+                    xs: 480,
+                    sm: 768,
+                    md: 992,
+                    lg: 1200
+                }
+            };
+        </script>
     </h:head>
 
-    <h:body styleClass="hold-transition skin-blue sidebar-mini">
+    <h:body styleClass="hold-transition skin-blue sidebar-collapse sidebar-mini">
         <div class="wrapper">
 
             <!-- Main Header -->
@@ -226,15 +241,180 @@
                 <!-- Main content -->
                 <section class="content">
 
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Default Box Example</h3>
-                            <div class="box-tools pull-right">
-                                <span class="label label-primary">Label</span>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-3">
+                            <div style="padding-left: 10px">
+                                <div class="info-box">
+                                    <div class="info-box-content-no-icon">
+                                        <span class="info-box-text">
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-pt.png"/>
+                                            <p:spacer width="5"/>
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-es.png"/>
+                                        </span>
+                                        <span class="info-box-number">
+                                            Circuito Especial
+                                        </span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 50%; background-color: #962365;"></div>
+                                        </div>
+                                        <span class="progress-description">
+                                            <span class="fa fa-clock-o"> 15:00</span>
+                                            <p:spacer width="5"/>
+                                            <span class="fa fa-group"> 15/24</span>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="box-body">
-                            The body of the box
+                        <div class="col-md-2 col-sm-3">
+                            <div style="padding-left: 10px">
+                                <div class="info-box">
+                                    <div class="info-box-content-no-icon">
+                                        <span class="info-box-text">
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-pt.png"/>
+                                            <p:spacer width="5"/>
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-es.png"/>
+                                            <p:spacer width="5"/>
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-en.png"/>
+                                        </span>
+                                        <span class="info-box-number">
+                                            Visita Panorâmica
+                                        </span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 90%; background-color: #008fd5;"></div>
+                                        </div>
+                                        <span class="progress-description">
+                                            <span class="fa fa-clock-o"> 16:00</span>
+                                            <p:spacer width="5"/>
+                                            <span class="fa fa-group"> 100/120</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-3">
+                            <div style="padding-left: 10px">
+                                <div class="info-box">
+                                    <div class="info-box-content-no-icon">
+                                        <span class="info-box-text">
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-pt.png"/>
+                                            <p:spacer width="5"/>
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-es.png"/>
+                                            <p:spacer width="5"/>
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-en.png"/>
+                                        </span>
+                                        <span class="info-box-number">
+                                            Visita Panorâmica
+                                        </span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 90%; background-color: #008fd5;"></div>
+                                        </div>
+                                        <span class="progress-description">
+                                            <span class="fa fa-clock-o"> 16:00</span>
+                                            <p:spacer width="5"/>
+                                            <span class="fa fa-group"> 100/120</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-3">
+                            <div style="padding-left: 10px">
+                                <div class="info-box">
+                                    <div class="info-box-content-no-icon">
+                                        <span class="info-box-text">
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-pt.png"/>
+                                            <p:spacer width="5"/>
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-es.png"/>
+                                            <p:spacer width="5"/>
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-en.png"/>
+                                        </span>
+                                        <span class="info-box-number">
+                                            Visita Panorâmica
+                                        </span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 90%; background-color: #008fd5;"></div>
+                                        </div>
+                                        <span class="progress-description">
+                                            <span class="fa fa-clock-o"> 16:00</span>
+                                            <p:spacer width="5"/>
+                                            <span class="fa fa-group"> 100/120</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix visible-sm"></div>
+                        <div class="col-md-2">
+                            <div style="padding-left: 10px">
+                                <div class="info-box">
+                                    <div class="info-box-content-no-icon">
+                                        <span class="info-box-text">
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-pt.png"/>
+                                            <p:spacer width="5"/>
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-es.png"/>
+                                            <p:spacer width="5"/>
+                                            <p:graphicImage width="24"
+                                                            height="16"
+                                                            library="app" 
+                                                            name="img/ui-flag-en.png"/>
+                                        </span>
+                                        <span class="info-box-number">
+                                            Visita Panorâmica
+                                        </span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 90%; background-color: #008fd5;"></div>
+                                        </div>
+                                        <span class="progress-description">
+                                            <span class="fa fa-clock-o"> 16:00</span>
+                                            <p:spacer width="5"/>
+                                            <span class="fa fa-group"> 100/120</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            
                         </div>
                     </div>
                 </section>

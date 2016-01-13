@@ -13,6 +13,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
+    <repositories>
+        <repository>  
+            <id>prime-repo</id>  
+            <name>PrimeFaces Maven Repository</name>  
+            <url>http://repository.primefaces.org</url>  
+        </repository>
+    </repositories>
+    
     <dependencies>
         <!--JEE-->
         <dependency>
@@ -36,6 +44,11 @@
             <version>5.3</version>  
         </dependency>
         <dependency>
+            <groupId>org.primefaces.themes</groupId>  
+            <artifactId>bootstrap</artifactId>  
+            <version>1.0.10</version>  
+        </dependency>
+        <dependency>
             <groupId>org.primefaces.extensions</groupId>  
             <artifactId>primefaces-extensions</artifactId>  
             <version>4.0.0</version>  
@@ -45,13 +58,6 @@
                     <artifactId>primefaces</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        
-        <!--bootsfaces-->
-        <dependency>
-            <groupId>net.bootsfaces</groupId>
-            <artifactId>bootsfaces</artifactId>
-            <version>0.8.0</version>
         </dependency>
         
         <!--lombok-->
