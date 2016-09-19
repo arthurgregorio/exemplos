@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.crudjsf.config;
+package br.eti.arthurgregorio.shirotest.config;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;

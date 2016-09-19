@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.crudjsf.config;
+package br.eti.arthurgregorio.shirotest.config;
 
 import javax.annotation.sql.DataSourceDefinition;
 import javax.ejb.Singleton;
@@ -15,9 +15,9 @@ import javax.ejb.Startup;
 @Startup
 @Singleton
 @DataSourceDefinition(
-        name = "java:app/datasources/CrudJsfDS",
+        name = "java:/datasources/ShiroTestDS",
         className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
-        url = "jdbc:mysql://localhost:3306/crudjsf",
-        user = "sa_crudjsf",
-        password = "sa_crudjsf")
+        url = "jdbc:mysql://localhost:3306/shirotest",
+        user = "sa_shirotest",
+        password = "sa_shirotest")
 public class DataSourceConfiguration { }

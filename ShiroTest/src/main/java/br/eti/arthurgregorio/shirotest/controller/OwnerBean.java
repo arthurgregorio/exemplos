@@ -1,10 +1,8 @@
-package br.eti.arthurgregorio.crudjsf.controller;
+package br.eti.arthurgregorio.shirotest.controller;
 
-import br.eti.arthurgregorio.crudjsf.dao.ProprietarioService;
-import br.eti.arthurgregorio.crudjsf.entities.Proprietario;
-import java.io.Serializable;
+import br.eti.arthurgregorio.shirotest.dao.OwnerDAO;
+import br.eti.arthurgregorio.shirotest.entities.Owner;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,17 +16,12 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class ProprietarioBean implements Serializable {
+public class OwnerBean extends GenericBean {
 
-    private Proprietario proprietario;
-    
-    private EstadoTela state;
+    private Owner proprietario;
     
     @Inject
-    private ProprietarioService proprietarioService;
-    
-    @Inject
-    private transient FacesContext facesContext;
+    private OwnerDAO proprietarioService;
     
     /**
      * 
@@ -38,13 +31,13 @@ public class ProprietarioBean implements Serializable {
     public void inicializar(long proprietarioId, boolean deletar) {
         
         if (proprietarioId == 0) {
-            this.proprietario = new Proprietario();
-            this.state = EstadoTela.INSERINDO;
+            this.proprietario = new Owner();
+            this.viewState = ViewState.ADDING;
         } else if (deletar) {
-            this.state = EstadoTela.DELETANDO;
+            this.viewState = ViewState.DELETING;
             this.proprietario = this.proprietarioService.buscarPorId(proprietarioId);
         } else {
-            this.state = EstadoTela.EDITANDO;
+            this.viewState = ViewState.EDITING;
             this.proprietario = this.proprietarioService.buscarPorId(proprietarioId);
         }
     }
@@ -73,17 +66,5 @@ public class ProprietarioBean implements Serializable {
                     FacesMessage.SEVERITY_ERROR, "Proprietario possui carros!", null));
             return null;
         }
-    }
-
-    public Proprietario getProprietario() {
-        return proprietario;
-    }
-
-    public void setProprietario(Proprietario proprietario) {
-        this.proprietario = proprietario;
-    }
-    
-    public EstadoTela getState() {
-        return state;
     }
 }

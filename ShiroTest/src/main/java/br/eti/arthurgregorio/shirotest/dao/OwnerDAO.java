@@ -1,6 +1,6 @@
-package br.eti.arthurgregorio.crudjsf.dao;
+package br.eti.arthurgregorio.shirotest.dao;
 
-import br.eti.arthurgregorio.crudjsf.entities.Carro;
+import br.eti.arthurgregorio.shirotest.entities.Owner;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -20,68 +20,67 @@ import javax.transaction.Transactional;
  * @since 1.0.0, 13/07/2015
  */
 @RequestScoped
-public class CarroService {
+public class OwnerDAO {
 
     @Inject
     private EntityManager entityManager;
 
     /**
      *
-     * @param carro
+     * @param proprietario
      * @return
      */
     @Transactional
-    public Carro salvar(Carro carro) {
-        return this.entityManager.merge(carro);
+    public Owner salvar(Owner proprietario) {
+        return this.entityManager.merge(proprietario);
     }
 
     /**
      *
-     * @param carro
+     * @param proprietario
      */
     @Transactional
-    public void remover(Carro carro) {
-        this.entityManager.remove(
-                this.entityManager.getReference(Carro.class, carro.getId()));
+    public void remover(Owner proprietario) {
+        this.entityManager.remove(this.entityManager.getReference(Owner.class, proprietario.getId()));
     }
 
     /**
      *
      * @return
      */
-    public List<Carro> listarTodos() {
+    public List<Owner> listarTodos() {
 
         final CriteriaBuilder builder = this.getBuilder();
 
-        final CriteriaQuery criteria = builder.createQuery(Carro.class);
+        final CriteriaQuery criteria = builder.createQuery(Owner.class);
 
-        criteria.select(criteria.from(Carro.class));
+        criteria.select(criteria.from(Owner.class));
 
-        final TypedQuery<Carro> query = this.entityManager.createQuery(criteria);
+        final TypedQuery<Owner> query = this.entityManager.createQuery(criteria);
 
         return query.getResultList();
     }
 
     /**
      *
-     * @param carroId
+     * @param proprietarioId
      * @return
      */
-    public Carro buscarPorId(long carroId) {
+    public Owner buscarPorId(long proprietarioId) {
 
         final CriteriaBuilder builder = this.getBuilder();
 
-        final CriteriaQuery<Carro> criteria = builder.createQuery(Carro.class);
-        final Root<Carro> root = criteria.from(Carro.class);
+        final CriteriaQuery<Owner> criteria = builder.createQuery(Owner.class);
+        final Root<Owner> root = criteria.from(Owner.class);
 
         final ParameterExpression<Long> parameter = builder.parameter(Long.class);
         
         criteria.select(root)
                 .where(builder.equal(root.get("id"), parameter));
 
-        final TypedQuery<Carro> query = this.entityManager.createQuery(criteria);
+        final TypedQuery<Owner> query = this.entityManager.createQuery(criteria);
         
-        query.setParameter(parameter, carroId);
+        query.setParameter(parameter, proprietarioId);
 
         return query.getSingleResult();
     }

@@ -1,14 +1,14 @@
-package br.eti.arthurgregorio.crudjsf.controller;
+package br.eti.arthurgregorio.shirotest.controller;
 
-import br.eti.arthurgregorio.crudjsf.dao.CarroService;
-import br.eti.arthurgregorio.crudjsf.dao.ProprietarioService;
-import br.eti.arthurgregorio.crudjsf.entities.Carro;
-import br.eti.arthurgregorio.crudjsf.entities.Proprietario;
-import java.io.Serializable;
+import br.eti.arthurgregorio.shirotest.dao.CarDAO;
+import br.eti.arthurgregorio.shirotest.dao.OwnerDAO;
+import br.eti.arthurgregorio.shirotest.entities.Car;
+import br.eti.arthurgregorio.shirotest.entities.Owner;
 import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import lombok.Getter;
 
 /**
  *
@@ -19,22 +19,24 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class HomeBean implements Serializable {
+public class HomeBean extends GenericBean {
 
-    private List<Carro> carros;
-    private List<Proprietario> proprietarios;
+    @Getter
+    private List<Car> cars;
+    @Getter
+    private List<Owner> owners;
     
     @Inject
-    private CarroService carroService;
+    private CarDAO carDAO;
     @Inject
-    private ProprietarioService proprietarioService;
+    private OwnerDAO ownerDAO;
     
     /**
-     * Inicializa...
+     * Initialize the view 
      */
-    public void inicializar() {
-        this.carros = this.carroService.listarTodos();
-        this.proprietarios = this.proprietarioService.listarTodos();
+    public void initialize() {
+        this.cars = this.carDAO.listarTodos();
+        this.owners = this.ownerDAO.listarTodos();
     }
     
     /**
@@ -71,21 +73,5 @@ public class HomeBean implements Serializable {
      */
     public String deletarProprietario(long proprietarioId) {
         return "proprietario/formProprietario.xhtml?faces-redirect=true&proprietarioId=" + proprietarioId + "&deletar=true";
-    }
-
-    public List<Carro> getCarros() {
-        return carros;
-    }
-
-    public void setCarros(List<Carro> carros) {
-        this.carros = carros;
-    }
-
-    public List<Proprietario> getProprietarios() {
-        return proprietarios;
-    }
-
-    public void setProprietarios(List<Proprietario> proprietarios) {
-        this.proprietarios = proprietarios;
     }
 }
