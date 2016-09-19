@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Crud JSF</title>
+
+        <style type="text/css">
+            .data-table {   
+                border-collapse:collapse;
+            }
+            .data-table-header {
+                text-align: center;
+                background: none repeat scroll 0 0 #E5E5E5;
+                border-bottom: 1px solid #BBBBBB;
+                padding: 16px;
+            }
+            .data-table-odd-row {
+                text-align: center;
+                background: none repeat scroll 0 0 #FFFFFFF;
+                border-top: 1px solid #BBBBBB;
+            }
+            .data-table-even-row {
+                text-align: center;
+                background: none repeat scroll 0 0 #F9F9F9;
+                border-top: 1px solid #BBBBBB;
+            }
+        </style>
+
+        <f:metadata>
+            <f:viewAction action="#{homeBean.inicializar()}"/>
+        </f:metadata>
+    </h:head>
+
+    <h:body>
+        <h2>Selecione uma opção</h2>
+
+        <h:form prependId="false">
+            <h3>Manter proprietarios</h3>
+            <ul>
+                <li>
+                    <h:commandLink value="Inserir" 
+                                   action="/proprietario/formProprietario.xhtml?faces-redirect=true" />
+                </li>
+            </ul>
+            <h:dataTable var="proprietario"
+                         styleClass="data-table"
+                         headerClass="data-table-header"
+                         value="#{homeBean.proprietarios}"
+                         rowClasses="data-table-odd-row,data-table-even-row">
+                <h:column>
+                    <f:facet name="header">
+                        Id
+                    </f:facet>
+                    #{proprietario.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Nome
+                    </f:facet>
+                    #{proprietario.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Ações
+                    </f:facet>
+                    <h:commandButton value="Editar" 
+                                     immediate="true"
+                                     action="#{homeBean.editarProprietario(proprietario.id)}"/>
+                    <h:commandButton value="Deletar" 
+                                     immediate="true"
+                                     action="#{homeBean.deletarProprietario(proprietario.id)}"/>
+                </h:column>
+            </h:dataTable>
+
+            <h3>Manter carros</h3>
+            <ul>
+                <li>
+                    <h:commandLink value="Inserir" 
+                                   action="/carro/formCarro.xhtml?faces-redirect=true" />
+                </li>
+            </ul>
+            <h:dataTable var="carro"
+                         styleClass="data-table"
+                         value="#{homeBean.carros}"
+                         headerClass="data-table-header"
+                         rowClasses="data-table-odd-row,data-table-even-row">
+                <h:column>
+                    <f:facet name="header">
+                        Id
+                    </f:facet>
+                    #{carro.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Placa
+                    </f:facet>
+                    #{carro.placa}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Proprietario
+                    </f:facet>
+                    #{carro.proprietario.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Ações
+                    </f:facet>
+                    <h:commandButton value="Editar" 
+                                     immediate="true"
+                                     action="#{homeBean.editarCarro(carro.id)}"/>
+                    <h:commandButton value="Deletar" 
+                                     immediate="true"
+                                     action="#{homeBean.deletarCarro(carro.id)}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>
+
