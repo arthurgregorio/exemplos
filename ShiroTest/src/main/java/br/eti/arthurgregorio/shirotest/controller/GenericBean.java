@@ -14,11 +14,11 @@ import lombok.Getter;
  */
 public abstract class GenericBean implements Serializable {
 
-    @Inject
-    protected FacesContext facesContext;
-    
     @Getter
     protected ViewState viewState;
+    
+    @Inject
+    protected FacesContext facesContext;
     
     /**
      * 

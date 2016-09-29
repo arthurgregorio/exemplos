@@ -16,8 +16,8 @@ import javax.ejb.Startup;
 @Singleton
 @DataSourceDefinition(
         name = "java:/datasources/ShiroTestDS",
-        className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
-        url = "jdbc:mysql://localhost:3306/shirotest",
+        className = "org.h2.jdbcx.JdbcDataSource",
+        url = "jdbc:h2:mem:shirotest;DB_CLOSE_DELAY=-1",
         user = "sa_shirotest",
         password = "sa_shirotest")
 public class DataSourceConfiguration { }

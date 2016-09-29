@@ -61,7 +61,6 @@ public class OwnerBean extends GenericBean {
             this.proprietarioService.remover(this.proprietario);
             return "/index.xhtml?faces-redirect=true";
         } catch (Exception ex) {
-            System.err.println(ex);
             this.facesContext.addMessage(null, new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, "Proprietario possui carros!", null));
             return null;
