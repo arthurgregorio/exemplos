@@ -2,9 +2,7 @@ package br.eti.arthurgregorio.shirotest.dao;
 
 import br.eti.arthurgregorio.shirotest.entities.Car;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import javax.enterprise.context.Dependent;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -19,38 +17,50 @@ import javax.transaction.Transactional;
  * @version 1.0.0
  * @since 1.0.0, 13/07/2015
  */
-@RequestScoped
-public class CarDAO {
-
-    @Inject
-    private EntityManager entityManager;
+@Dependent
+public class CarDAO extends AbstractDAO<Car> {
 
     /**
-     *
-     * @param carro
-     * @return
+     * 
+     * @param data
+     * @return 
      */
+    @Override
     @Transactional
-    public Car salvar(Car carro) {
-        return this.entityManager.merge(carro);
+    public Car save(Car data) {
+        return this.entityManager.merge(data);
+    }
+
+    /**
+     * 
+     * @param data
+     * @return 
+     */
+    @Override
+    @Transactional
+    public Car update(Car data) {
+        return this.entityManager.merge(data);
     }
 
     /**
      *
-     * @param carro
+     * @param data
      */
+    @Override
     @Transactional
-    public void remover(Car carro) {
-        this.entityManager.remove(this.entityManager.getReference(Car.class, carro.getId()));
+    public void delete(Car data) {
+        this.entityManager.remove(this.entityManager
+                .getReference(Car.class, data.getId()));
     }
 
     /**
      *
      * @return
      */
-    public List<Car> listarTodos() {
+    @Override
+    public List<Car> listAll() {
 
-        final CriteriaBuilder builder = this.getBuilder();
+        final CriteriaBuilder builder = this.getCriteriaBuilder();
 
         final CriteriaQuery criteria = builder.createQuery(Car.class);
 
@@ -66,9 +76,10 @@ public class CarDAO {
      * @param carroId
      * @return
      */
-    public Car buscarPorId(long carroId) {
+    @Override
+    public Car findById(long carroId) {
 
-        final CriteriaBuilder builder = this.getBuilder();
+        final CriteriaBuilder builder = this.getCriteriaBuilder();
 
         final CriteriaQuery<Car> criteria = builder.createQuery(Car.class);
         final Root<Car> root = criteria.from(Car.class);
@@ -83,12 +94,5 @@ public class CarDAO {
         query.setParameter(parameter, carroId);
 
         return query.getSingleResult();
-    }
-
-    /**
-     * @return o builder de criterias
-     */
-    public CriteriaBuilder getBuilder() {
-        return this.entityManager.getCriteriaBuilder();
     }
 }

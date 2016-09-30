@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
@@ -22,6 +24,11 @@ import lombok.ToString;
 @ToString
 @Table(name = "users")
 @EqualsAndHashCode(callSuper = true)
+@NamedQueries({
+    @NamedQuery(name = "User.all", query = "select u from User u"),
+    @NamedQuery(name = "User.byUsername", 
+            query = "SELECT u FROM User u WHERE u.username = :username")
+})
 public class User extends PersistentEntity {
 
     @Getter

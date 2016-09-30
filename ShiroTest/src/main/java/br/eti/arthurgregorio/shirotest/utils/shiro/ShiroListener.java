@@ -1,11 +1,14 @@
 package br.eti.arthurgregorio.shirotest.utils.shiro;
 
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.annotation.WebListener;
 import org.apache.shiro.web.env.DefaultWebEnvironment;
 import org.apache.shiro.web.env.EnvironmentLoaderListener;
 import org.apache.shiro.web.env.WebEnvironment;
+import org.apache.shiro.web.filter.mgt.FilterChainResolver;
+import org.apache.shiro.web.mgt.WebSecurityManager;
 
 /**
  *
@@ -17,6 +20,11 @@ import org.apache.shiro.web.env.WebEnvironment;
 @WebListener
 public class ShiroListener extends EnvironmentLoaderListener {
 
+    @Inject
+    private WebSecurityManager webSecurityManager;
+    @Inject
+    private FilterChainResolver filterChainResolver;
+    
     /**
      * 
      * @param event 
@@ -41,6 +49,8 @@ public class ShiroListener extends EnvironmentLoaderListener {
         final DefaultWebEnvironment environment = (DefaultWebEnvironment) 
                 super.createEnvironment(servletContext);
         
+        environment.setSecurityManager(this.webSecurityManager);
+        environment.setFilterChainResolver(this.filterChainResolver);
         
         return environment;
     }

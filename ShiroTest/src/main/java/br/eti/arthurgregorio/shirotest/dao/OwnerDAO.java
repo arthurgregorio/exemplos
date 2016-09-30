@@ -2,7 +2,7 @@ package br.eti.arthurgregorio.shirotest.dao;
 
 import br.eti.arthurgregorio.shirotest.entities.Owner;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -19,7 +19,7 @@ import javax.transaction.Transactional;
  * @version 1.0.0
  * @since 1.0.0, 13/07/2015
  */
-@RequestScoped
+@Dependent
 public class OwnerDAO {
 
     @Inject
