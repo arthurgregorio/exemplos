@@ -2,6 +2,8 @@ package br.eti.arthurgregorio.shirotest.utils.shiro;
 
 import br.eti.arthurgregorio.shirotest.entities.User;
 import br.eti.arthurgregorio.shirotest.service.AccountService;
+import java.util.HashSet;
+import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -9,6 +11,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -64,5 +67,14 @@ public class SecurityRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         
+        if (principalCollection == null) {
+            throw new AuthorizationException(
+                    "The principal collections can't be null");
+        }
+        
+        final String username = 
+                (String) this.getAvailablePrincipal(principalCollection);
+        
+        final Set<String> roles = this.accountService.listRolesByUserName(username);
     }
 }
