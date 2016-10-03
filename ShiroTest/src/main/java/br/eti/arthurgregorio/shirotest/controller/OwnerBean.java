@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.shirotest.controller;
 
-import br.eti.arthurgregorio.shirotest.dao.OwnerDAO;
 import br.eti.arthurgregorio.shirotest.entities.Owner;
+import br.eti.arthurgregorio.shirotest.service.RentalService;
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -18,36 +18,33 @@ import javax.inject.Named;
 @ViewScoped
 public class OwnerBean extends GenericBean {
 
-    private Owner proprietario;
+    private Owner owner;
     
     @Inject
-    private OwnerDAO proprietarioService;
+    private RentalService rentalService;
     
     /**
      * 
-     * @param proprietarioId
-     * @param deletar 
+     * @param ownerId
+     * @param viewState 
      */
-    public void inicializar(long proprietarioId, boolean deletar) {
+    public void initialize(long ownerId, String viewState) {
+       
+        this.viewState = ViewState.valueOf(viewState);
         
-        if (proprietarioId == 0) {
-            this.proprietario = new Owner();
-            this.viewState = ViewState.ADDING;
-        } else if (deletar) {
-            this.viewState = ViewState.DELETING;
-            this.proprietario = this.proprietarioService.buscarPorId(proprietarioId);
+        if (this.viewState == ViewState.ADDING) {
+            this.owner = new Owner();
         } else {
-            this.viewState = ViewState.EDITING;
-            this.proprietario = this.proprietarioService.buscarPorId(proprietarioId);
+            this.owner = this.rentalService.findOwnerById(ownerId);
         }
     }
     
     /**
      * Salva..
      */
-    public void salvar() {
-        this.proprietarioService.salvar(this.proprietario);
-        this.proprietario = null;
+    public void save() {
+        this.rentalService.saveOwner(this.owner);
+        this.owner = null;
         this.facesContext.addMessage(null, new FacesMessage("Proprietario salvo!", null));
     }
     
@@ -56,9 +53,9 @@ public class OwnerBean extends GenericBean {
      * 
      * @return e volta
      */
-    public String deletar() {
+    public String delete() {
         try {
-            this.proprietarioService.remover(this.proprietario);
+            this.rentalService.deleteOwner(this.owner);
             return "/index.xhtml?faces-redirect=true";
         } catch (Exception ex) {
             this.facesContext.addMessage(null, new FacesMessage(

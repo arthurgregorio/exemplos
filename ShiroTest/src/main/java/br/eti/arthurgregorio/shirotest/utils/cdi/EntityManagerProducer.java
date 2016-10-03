@@ -1,11 +1,13 @@
-package br.eti.arthurgregorio.shirotest.config;
+package br.eti.arthurgregorio.shirotest.utils.cdi;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
+ * The EntityManager producer
  *
  * @author Arthur Gregorio
  *
@@ -19,10 +21,10 @@ public class EntityManagerProducer {
     private EntityManager entityManager;
 
     /**
-     * 
-     * @return 
+     * @return the entity manager
      */
     @Produces
+    @RequestScoped
     EntityManager produce() {
         return this.entityManager;
     }

@@ -1,10 +1,11 @@
 package br.eti.arthurgregorio.shirotest.utils.shiro;
 
+import br.eti.arthurgregorio.shirotest.entities.GroupPermission;
 import br.eti.arthurgregorio.shirotest.entities.User;
 import br.eti.arthurgregorio.shirotest.service.AccountService;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import org.apache.commons.lang3.StringUtils;
+import java.util.stream.Collectors;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,6 +14,7 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
@@ -55,7 +57,6 @@ public class SecurityRealm extends AuthorizingRealm {
             return new SimpleAuthenticationInfo(
                     token.getUsername(), user.getPassword(), this.getName());
         }
-        
         throw new IncorrectCredentialsException();
     }
 
@@ -75,6 +76,14 @@ public class SecurityRealm extends AuthorizingRealm {
         final String username = 
                 (String) this.getAvailablePrincipal(principalCollection);
         
-        final Set<String> roles = this.accountService.listRolesByUserName(username);
+        final List<GroupPermission> groupPermissions = 
+                this.accountService.loadUserPermissions(username);
+        
+        final Set<String> authorizationKeys = groupPermissions
+                .parallelStream()
+                .map(GroupPermission::getAuthorizationKey)
+                .collect(Collectors.toSet());
+        
+        return new SimpleAuthorizationInfo(authorizationKeys);
     }
 }

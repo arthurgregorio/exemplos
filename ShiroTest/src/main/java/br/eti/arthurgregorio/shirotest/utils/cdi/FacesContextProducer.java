@@ -1,21 +1,23 @@
-package br.eti.arthurgregorio.shirotest.config;
+package br.eti.arthurgregorio.shirotest.utils.cdi;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 
 /**
- * Produz instancias do facescontext
+ * Facescontext producer
  *
  * @author Arthur Gregorio
  *
  * @version 1.0.0
  * @since 1.0.0, 20/07/2015
  */
+@ApplicationScoped
 public class FacesContextProducer {
 
     /**
-     * @return uma instancia do facescontext
+     * @return the facescontext instance
      */
     @Produces
     @RequestScoped

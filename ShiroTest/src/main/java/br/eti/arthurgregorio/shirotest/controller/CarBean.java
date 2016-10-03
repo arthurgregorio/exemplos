@@ -1,9 +1,8 @@
 package br.eti.arthurgregorio.shirotest.controller;
 
-import br.eti.arthurgregorio.shirotest.dao.CarDAO;
-import br.eti.arthurgregorio.shirotest.dao.OwnerDAO;
 import br.eti.arthurgregorio.shirotest.entities.Car;
 import br.eti.arthurgregorio.shirotest.entities.Owner;
+import br.eti.arthurgregorio.shirotest.service.RentalService;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
@@ -29,47 +28,41 @@ public class CarBean extends GenericBean {
     private List<Owner> owners;
     
     @Inject
-    private CarDAO carDAO;
-    @Inject
-    private OwnerDAO ownerDAO;
+    private RentalService rentalService;
     
     /**
      * 
-     * @param carroId
-     * @param deletar 
+     * @param carId
+     * @param viewState 
      */
-    public void inicializar(long carroId, boolean deletar) {
+    public void initialize(long carId, String viewState) {
         
-        this.owners = this.ownerDAO.listarTodos();
+        this.viewState = ViewState.valueOf(viewState);
         
-        if (carroId == 0) {
+        this.owners = this.rentalService.listAllOwners();
+        
+        if (this.viewState == ViewState.ADDING) {
             this.car = new Car();
-            this.viewState = ViewState.ADDING;
-        } else if (deletar) {
-            this.viewState = ViewState.DELETING;
-            this.car = this.carDAO.buscarPorId(carroId);
         } else {
-            this.viewState = ViewState.EDITING;
-            this.car = this.carDAO.buscarPorId(carroId);
+            this.car = this.rentalService.findCarById(carId);
         }
     }
     
     /**
-     * Salva..
+     * 
      */
-    public void salvar() {
-        this.carDAO.salvar(this.car);
+    public void save() {
+        this.rentalService.saveCar(this.car);
         this.car = null;
         this.facesContext.addMessage(null, new FacesMessage("Carro salvo!", null));
     }
     
     /**
-     * Deleta
      * 
-     * @return e volta
+     * @return 
      */
     public String deletar() {
-        this.carDAO.remover(this.car);
+        this.rentalService.deleteCar(this.car);
         return "/index.xhtml?faces-redirect=true";
     }
 }

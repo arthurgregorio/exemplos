@@ -2,6 +2,8 @@ package br.eti.arthurgregorio.shirotest.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,6 +21,12 @@ import lombok.ToString;
 @ToString
 @Table(name = "owners")
 @EqualsAndHashCode(callSuper = true)
+@NamedQueries({
+    @NamedQuery(name = "Owner.all", 
+            query = "SELECT o FROM Owner o"),
+    @NamedQuery(name = "Owner.byId", 
+            query = "SELECT o FROM Owner o WHERE o.id = :id")
+})
 public class Owner extends PersistentEntity {
 
     @Getter

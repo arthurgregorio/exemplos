@@ -19,17 +19,18 @@ import lombok.ToString;
  */
 @Entity
 @ToString
-@Table(name = "groups")
+@Table(name = "permissions")
 @EqualsAndHashCode(callSuper = true)
 @NamedQueries({
-    @NamedQuery(name = "Group.all", query = "SELECT g FROM Group g"),
-    @NamedQuery(name = "Group.byId", 
-            query = "SELECT g FROM Group g WHERE g.id = :id")
+    @NamedQuery(name = "Permission.all", 
+            query = "SELECT p FROM Permission p"),
+    @NamedQuery(name = "Permission.byId", 
+            query = "SELECT p FROM Permission p WHERE p.id = :id")
 })
-public class Group extends PersistentEntity {
+public class Permission extends PersistentEntity {
 
     @Getter
     @Setter
-    @Column(name = "name", nullable = false, length = 90)
-    private String name;
+    @Column(name = "authorization_key", nullable = false, length = 100)
+    private String authorizationKey;
 }

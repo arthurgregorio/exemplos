@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,6 +23,11 @@ import lombok.ToString;
 @ToString
 @Table(name = "cars")
 @EqualsAndHashCode(callSuper = true)
+@NamedQueries({
+    @NamedQuery(name = "Car.all", query = "SELECT c FROM Car c"),
+    @NamedQuery(name = "Car.byId", 
+            query = "SELECT c FROM Car c WHERE c.id = :id")
+})
 public class Car extends PersistentEntity {
 
     @Getter

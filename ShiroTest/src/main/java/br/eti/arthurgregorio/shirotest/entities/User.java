@@ -25,7 +25,8 @@ import lombok.ToString;
 @Table(name = "users")
 @EqualsAndHashCode(callSuper = true)
 @NamedQueries({
-    @NamedQuery(name = "User.all", query = "select u from User u"),
+    @NamedQuery(name = "User.all", 
+            query = "select u from User u"),
     @NamedQuery(name = "User.byUsername", 
             query = "SELECT u FROM User u WHERE u.username = :username")
 })
