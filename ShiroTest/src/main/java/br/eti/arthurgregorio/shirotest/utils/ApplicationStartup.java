@@ -25,17 +25,28 @@ public class ApplicationStartup {
      */
     @PostConstruct
     public void initialize() {
-        
+        this.createDefaultPermissions();
+        this.createDefaultGroup();
+        this.createDefaultUser();
     }
     
+    /**
+     * 
+     */
     private void createDefaultPermissions() {
     
     }
     
+    /**
+     * 
+     */
     private void createDefaultGroup() {
     
     }
     
+    /**
+     * 
+     */
     private void createDefaultUser() {
     
     }
