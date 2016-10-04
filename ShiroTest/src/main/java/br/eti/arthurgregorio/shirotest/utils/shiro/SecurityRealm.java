@@ -57,7 +57,7 @@ public class SecurityRealm extends AuthorizingRealm {
             return new SimpleAuthenticationInfo(
                     token.getUsername(), user.getPassword(), this.getName());
         }
-        throw new IncorrectCredentialsException();
+        throw new IncorrectCredentialsException("Invalid user or password");
     }
 
     /**

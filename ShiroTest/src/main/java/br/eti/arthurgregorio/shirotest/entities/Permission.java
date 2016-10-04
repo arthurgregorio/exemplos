@@ -33,4 +33,17 @@ public class Permission extends PersistentEntity {
     @Setter
     @Column(name = "authorization_key", nullable = false, length = 100)
     private String authorizationKey;
+
+    /**
+     * 
+     */
+    public Permission() { }
+
+    /**
+     * 
+     * @param authorizationKey 
+     */
+    public Permission(String authorizationKey) {
+        this.authorizationKey = authorizationKey;
+    }
 }

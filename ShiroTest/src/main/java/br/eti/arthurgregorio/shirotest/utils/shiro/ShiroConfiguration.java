@@ -55,7 +55,7 @@ public class ShiroConfiguration {
             // instantiate the custom password matcher based on bcrypt
             final PasswordMatcher passwordMatcher = new PasswordMatcher();
 
-            passwordMatcher.setPasswordService(new BCryptPasswordMatcher());
+            passwordMatcher.setPasswordService(new BCryptPasswordService());
 
             realm.setCredentialsMatcher(passwordMatcher);
 

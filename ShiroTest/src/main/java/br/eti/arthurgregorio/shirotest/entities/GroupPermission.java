@@ -55,6 +55,10 @@ public class GroupPermission extends PersistentEntity {
         this.permission = permission;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String getAuthorizationKey() {
         return this.permission.getAuthorizationKey();
     }

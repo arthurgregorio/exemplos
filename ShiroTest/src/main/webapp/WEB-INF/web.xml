@@ -18,9 +18,8 @@
 
     <!--other configs-->
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>

@@ -21,7 +21,8 @@ public class JPALocalDateTimeConverter implements AttributeConverter<LocalDateTi
      */
     @Override
     public Date convertToDatabaseColumn(LocalDateTime attribute) {
-        return Date.from(attribute.atZone(ZoneId.systemDefault()).toInstant());
+        return attribute == null ? null : Date.from(
+                attribute.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     /**
@@ -31,6 +32,7 @@ public class JPALocalDateTimeConverter implements AttributeConverter<LocalDateTi
      */
     @Override
     public LocalDateTime convertToEntityAttribute(Date dbData) {
-        return LocalDateTime.ofInstant(dbData.toInstant(), ZoneId.systemDefault());
+        return dbData == null ? null : LocalDateTime.ofInstant(
+                dbData.toInstant(), ZoneId.systemDefault());
     }
 }

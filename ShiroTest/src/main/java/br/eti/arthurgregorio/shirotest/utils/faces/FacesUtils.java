@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.shirotest.utils;
+package br.eti.arthurgregorio.shirotest.utils.faces;
 
 import org.omnifaces.util.Messages;
 

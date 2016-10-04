@@ -3,6 +3,7 @@ package br.eti.arthurgregorio.shirotest.dao;
 import br.eti.arthurgregorio.shirotest.entities.User;
 import java.util.List;
 import javax.enterprise.context.Dependent;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -22,9 +23,13 @@ public class UserDAO extends AbstractDAO<User> {
 
     @Override
     public User findById(long id) {
-        return this.getQuery("User.byId", User.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        try {
+            return this.getQuery("User.byId", User.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 
     /**
@@ -33,8 +38,12 @@ public class UserDAO extends AbstractDAO<User> {
      * @return 
      */
     public User findByUsername(String username) {
-        return this.getQuery("User.byUsername", User.class)
+        try {
+            return this.getQuery("User.byUsername", User.class)
                 .setParameter("username", username)
                 .getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 }

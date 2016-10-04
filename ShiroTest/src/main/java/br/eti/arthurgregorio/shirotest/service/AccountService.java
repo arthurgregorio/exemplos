@@ -6,11 +6,13 @@ import br.eti.arthurgregorio.shirotest.dao.PermissionDAO;
 import br.eti.arthurgregorio.shirotest.dao.UserDAO;
 import br.eti.arthurgregorio.shirotest.entities.Group;
 import br.eti.arthurgregorio.shirotest.entities.GroupPermission;
+import br.eti.arthurgregorio.shirotest.entities.Permission;
 import br.eti.arthurgregorio.shirotest.entities.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -30,6 +32,45 @@ public class AccountService {
     private PermissionDAO permissionDAO;
     @Inject
     private GroupPermissionDAO groupPermissionDAO;
+    
+    /**
+     * 
+     * @param user
+     * @return 
+     */
+    @Transactional
+    public User saveUser(User user) {
+        return this.userDAO.save(user);
+    }
+    
+    /**
+     * 
+     * @param permission 
+     */
+    @Transactional
+    public void savePermission(Permission permission) {
+        this.permissionDAO.save(permission);
+    }
+    
+    /**
+     * 
+     * @param group
+     * @return 
+     */
+    @Transactional
+    public Group saveGroup(Group group) {
+    
+        final List<GroupPermission> permissions = group.getGroupPermissions();
+        
+        final Group savedGroup = this.groupDAO.save(group);
+        
+        permissions.stream().forEach(permission -> {
+            this.groupPermissionDAO.save(
+                    new GroupPermission(savedGroup, permission.getPermission()));
+        });
+        
+        return savedGroup;
+    }
 
     /**
      * 
@@ -66,5 +107,13 @@ public class AccountService {
                     this.groupPermissionDAO.listByGroup(group));
         }
         return groupPermissions;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public List<Permission> listAllPermissions() {
+        return this.permissionDAO.listAll();
     }
 }
