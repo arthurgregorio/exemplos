@@ -1,12 +1,10 @@
 package br.eti.arthurgregorio.shirotest.controller;
 
-import br.eti.arthurgregorio.shirotest.utils.faces.FacesUtils;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
 
 /**
  *
@@ -17,7 +15,7 @@ import org.slf4j.Logger;
  */
 @Named
 @ViewScoped
-public class LoginBean extends GenericBean {
+public class UserSessionBean extends GenericBean {
 
     @Inject
     private Subject subject;
@@ -26,10 +24,22 @@ public class LoginBean extends GenericBean {
     private final Credential credential;
 
     /**
-     *
+     * 
      */
-    public LoginBean() {
+    public UserSessionBean() {
         this.credential = new Credential();
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public String initialize() {
+        if (this.subject.isAuthenticated()) {
+            return "/secured/index.xhtml?faces-redirect=true";
+        } else {
+            return "/index.xhtml";
+        }
     }
 
     /**
@@ -38,6 +48,15 @@ public class LoginBean extends GenericBean {
      */
     public String login() {
         this.subject.login(this.credential.asToken());
-        return "/secured/index.xhtml";
+        return "/secured/index.xhtml?faces-redirect=true";
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String logout() {
+        this.subject.logout();
+        return "/index.xhtml?faces-redirect=true";
     }
 }

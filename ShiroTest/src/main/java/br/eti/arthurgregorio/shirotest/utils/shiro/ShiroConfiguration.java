@@ -91,6 +91,9 @@ public class ShiroConfiguration {
             final PathMatchingFilterChainResolver resolver
                     = new PathMatchingFilterChainResolver();
 
+            chainManager.createChain("/secured/**", "authc");
+            chainManager.createChain("/index.xhtml", "anon");
+            
             resolver.setFilterChainManager(chainManager);
             
             this.filterChainResolver = resolver;
