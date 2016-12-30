@@ -19,11 +19,4 @@ public abstract class GenericBean implements Serializable {
     
     @Inject
     protected FacesContext facesContext;
-    
-    /**
-     * The view state to manipulate the view
-     */
-    protected enum ViewState {
-        ADDING, EDITING, DELETING;
-    }
 }

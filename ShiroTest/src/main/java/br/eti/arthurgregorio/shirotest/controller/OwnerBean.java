@@ -6,6 +6,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import lombok.Getter;
 
 /**
  *
@@ -18,6 +19,7 @@ import javax.inject.Named;
 @ViewScoped
 public class OwnerBean extends GenericBean {
 
+    @Getter
     private Owner owner;
     
     @Inject

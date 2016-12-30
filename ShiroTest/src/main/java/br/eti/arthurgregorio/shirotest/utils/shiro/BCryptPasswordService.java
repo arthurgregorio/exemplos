@@ -2,7 +2,6 @@ package br.eti.arthurgregorio.shirotest.utils.shiro;
 
 import javax.enterprise.context.RequestScoped;
 import lombok.Getter;
-import lombok.Setter;
 import org.apache.shiro.authc.credential.PasswordService;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -17,8 +16,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class BCryptPasswordService implements PasswordService {
 
     @Getter
-    @Setter
-    private int logRounds;
+    private final int logRounds;
 
     /**
      * 
