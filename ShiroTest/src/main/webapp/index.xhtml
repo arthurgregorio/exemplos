@@ -20,7 +20,7 @@
             }
         </style>
         <f:metadata>
-            <f:viewAction action="#{userSessionBean.initialize()}" />
+            <f:viewAction action="#{loginBean.initialize()}" />
         </f:metadata>    
     </h:head>
     <h:body>
@@ -33,15 +33,15 @@
                     <p:messages autoUpdate="true" closable="true" />
                     <legend>Garage System</legend>
                     <p:inputText placeholder="Username"
-                                 value="#{userSessionBean.credential.username}"/>
+                                 value="#{loginBean.credential.username}"/>
                     <p:password placeholder="Password"
-                                value="#{userSessionBean.credential.password}"/>
+                                value="#{loginBean.credential.password}"/>
                     <label for="remember">
                         <p:selectBooleanCheckbox itemLabel="Remember me"
-                                                 value="#{userSessionBean.credential.rememberMe}"/>
+                                                 value="#{loginBean.credential.rememberMe}"/>
                     </label>
                     <p:commandButton value="Sign in" 
-                                     action="#{userSessionBean.login()}"/>
+                                     action="#{loginBean.login()}"/>
                 </h:form>
             </div>
             <div class="pure-u-1-3">

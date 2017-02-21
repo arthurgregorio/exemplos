@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="ShiroTestPU" transaction-type="JTA">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>java:/datasources/ShiroTestDS</jta-data-source>
-        <class>br.eti.arthurgregorio.shirotest.entities.Car</class>
-        <class>br.eti.arthurgregorio.shirotest.entities.Owner</class>
-        <class>br.eti.arthurgregorio.shirotest.entities.Group</class>
-        <class>br.eti.arthurgregorio.shirotest.entities.GroupPermission</class>
-        <class>br.eti.arthurgregorio.shirotest.entities.Permission</class>
-        <class>br.eti.arthurgregorio.shirotest.entities.User</class>
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
-        <properties>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.connection.autocommit" value="false"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-        </properties>
-    </persistence-unit>
+  <persistence-unit name="ShiroTestPU" transaction-type="JTA">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <jta-data-source>java:/datasources/ShiroTestDS</jta-data-source>
+    <class>br.eti.arthurgregorio.shirotest.model.entities.Group</class>
+    <class>br.eti.arthurgregorio.shirotest.model.entities.User</class>
+    <class>br.eti.arthurgregorio.shirotest.model.entities.Permission</class>
+    <class>br.eti.arthurgregorio.shirotest.model.entities.Car</class>
+    <class>br.eti.arthurgregorio.shirotest.model.entities.GroupPermission</class>
+    <class>br.eti.arthurgregorio.shirotest.model.entities.Owner</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.connection.autocommit" value="false"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+    </properties>
+  </persistence-unit>
 </persistence>
