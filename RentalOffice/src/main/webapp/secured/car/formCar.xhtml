@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Rental Office</title>
+        <f:metadata>
+            <f:viewAction action="#{carBean.initialize(param.carId, param.viewState)}"/>
+        </f:metadata>
+    </h:head>
+
+    <h:body>
+        <p:importEnum var="viewState" 
+                      allSuffix="ALL_VALUES"
+                      type="br.com.rentaloffice.application.controller.ViewState" />        
+
+        <h:form id="carForm">
+            <h3 jsf:rendered="#{carBean.viewState eq viewState.ADDING}">
+                Adding car
+            </h3>
+            <h3 jsf:rendered="#{carBean.viewState eq viewState.EDITING}">
+                Editing car
+            </h3>
+            <div class="pure-g">
+                <div class="pure-u-1-5">
+                    <p:messages id="mensagens" />
+                </div>
+                <div class="pure-u-1-5"
+                     jsf:rendered="#{carBean.viewState eq viewState.EDITING}">
+                    <p:outputLabel for="inId" 
+                                   value="Id:"/>
+                    <p:inputText id="inId"
+                                 readonly="true"
+                                 value="#{carBean.car.id}"/>
+                </div>
+                <div class="pure-u-1-5">
+                    <p:outputLabel for="inPlate" 
+                                   value="Plate:" />
+                    <p:inputText id="inPlate"
+                                 value="#{carBean.car.plate}" />
+                </div>                
+                <div class="pure-u-1-5">
+                    <p:outputLabel value="Owner:" />
+                    <p:selectOneMenu value="#{carBean.car.owner}"
+                                     converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem value="#{null}"
+                                      itemLabel="Select One"/>
+                        <f:selectItems var="owner"
+                                       itemValue="#{owner}"
+                                       itemLabel="#{owner.name}"
+                                       value="#{carBean.owners}"/>
+                    </p:selectOneMenu>
+                </div>                
+                <div class="pure-u-1-5">
+                    <p:commandButton value="Save"
+                                     update="@form"
+                                     actionListener="#{carBean.save()}"/>
+
+                    <p:button value="Voltar" outcome="/index.xhtml"/>
+                </div>                
+            </div>
+        </h:form>
+    </h:body>
+</html>
+
+

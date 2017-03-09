@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Rental Office</title>
+        <f:metadata>
+            <f:viewAction action="#{ownerBean.initialize(param.ownerId, param.viewState)}"/>
+        </f:metadata>
+    </h:head>
+
+    <h:body>
+        <p:importEnum var="viewState" 
+                      allSuffix="ALL_VALUES"
+                      type="br.com.rentaloffice.application.controller.ViewState" />        
+
+        <h:form id="ownerForm">
+            <h3 jsf:rendered="#{ownerBean.viewState eq viewState.ADDING}">
+                Adding owner
+            </h3>
+            <h3 jsf:rendered="#{ownerBean.viewState eq viewState.EDITING}">
+                Editing owner
+            </h3>
+            <div class="pure-g">
+                <div class="pure-u-1-4">
+                    <p:messages id="mensagens" />
+                </div>
+                <div class="pure-u-1-4"
+                     jsf:rendered="#{ownerBean.viewState eq viewState.EDITING}">
+                    <p:outputLabel for="inId" 
+                                   value="Id:" />
+                    <p:inputText id="inId"
+                                 readonly="true"
+                                 value="#{ownerBean.owner.id}" />
+                </div>
+                <div class="pure-u-1-4">
+                    <p:outputLabel for="inNome" 
+                                   value="Nome:" />
+                    <p:inputText id="inNome"
+                                 value="#{ownerBean.owner.name}" />
+                </div>
+                <div class="pure-u-1-4">
+                    <p:commandButton value="Save" 
+                                     update="@form"
+                                     actionListener="#{ownerBean.save()}"/>
+                    
+                    <p:button value="Voltar" outcome="/index.xhtml"/>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+
+

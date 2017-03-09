@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:shiro="http://shiro.apache.org/tags">
+
+    <h:head>
+        <title>Rental Office</title>
+
+        <style type="text/css">
+            .data-table {   
+                border-collapse:collapse;
+            }
+            .data-table-header {
+                text-align: center;
+                background: none repeat scroll 0 0 #E5E5E5;
+                border-bottom: 1px solid #BBBBBB;
+                padding: 16px;
+            }
+            .data-table-odd-row {
+                text-align: center;
+                background: none repeat scroll 0 0 #FFFFFFF;
+                border-top: 1px solid #BBBBBB;
+            }
+            .data-table-even-row {
+                text-align: center;
+                background: none repeat scroll 0 0 #F9F9F9;
+                border-top: 1px solid #BBBBBB;
+            }
+        </style>
+        
+        <f:metadata>
+            <f:viewAction action="#{homeBean.initialize()}"/>
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <p:importEnum var="viewState" 
+                      allSuffix="ALL_VALUES"
+                      type="br.com.rentaloffice.application.controller.ViewState" />
+
+        <h1>Welcome to Rental Office, <shiro:principal property="name" /></h1>
+        <h:form>
+            <div class="pure-g">
+                <div class="pure-u-1-3">
+                    <shiro:hasPermission name="owner:access">
+                        <p:link value="Add Owners" 
+                                includeViewParams="true"
+                                outcome="/secured/owner/formOwner.xhtml">
+                            <f:param name="faces-redirect" value="true"/>
+                            <f:param name="viewState" value="#{viewState.ADDING}"/>
+                        </p:link>
+
+                        <p:dataTable var="owner"
+                                     value="#{homeBean.owners}">
+                            <p:column headerText="Name">
+                                #{owner.name}
+                            </p:column>
+                        </p:dataTable>
+                    </shiro:hasPermission>
+                </div>
+                <div class="pure-u-1-3">
+                    <shiro:hasPermission name="car:access">
+                        <p:link value="Add Cars" 
+                                includeViewParams="true"
+                                outcome="/secured/car/formCar.xhtml">
+                            <f:param name="faces-redirect" value="true"/>
+                            <f:param name="viewState" value="#{viewState.ADDING}"/>
+                        </p:link>
+
+                        <p:dataTable var="car"
+                                     value="#{homeBean.cars}" >
+                            <p:column headerText="Owner">
+                                #{car.owner.name}
+                            </p:column>
+                            <p:column headerText="Plate">
+                                #{car.plate}
+                            </p:column>
+                        </p:dataTable>
+                    </shiro:hasPermission>
+                </div>
+                <div class="pure-u-1-3">
+                    <p:commandLink value="Logout" 
+                                   immediate="true"
+                                   action="#{homeBean.logout()}"/>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+
