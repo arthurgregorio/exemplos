@@ -2,6 +2,7 @@ package br.com.rentaloffice.model.entities;
 
 import br.com.rentaloffice.application.resources.jpa.PersistListener;
 import br.com.rentaloffice.application.resources.jpa.JPALocalDateTimeConverter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -39,20 +40,24 @@ public abstract class PersistentEntity implements Serializable {
     
     @Getter
     @Setter
+    @JsonIgnore
     @Column(name = "included_by", length = 45)
     private String includedBy;
     @Getter
     @Setter
+    @JsonIgnore
     @Column(name = "edited_by", length = 45)
     private String editedBy;
     
     @Getter
     @Setter
+    @JsonIgnore
     @Column(name = "inclusion", nullable = false)
     @Convert(converter = JPALocalDateTimeConverter.class)
     private LocalDateTime inclusion;
     @Getter
     @Setter
+    @JsonIgnore
     @Column(name = "last_edition")
     @Convert(converter = JPALocalDateTimeConverter.class)
     private LocalDateTime lastEdition;
@@ -60,6 +65,7 @@ public abstract class PersistentEntity implements Serializable {
     /**
      * @return 
      */
+    @JsonIgnore
     public boolean isSaved(){
         return this.id != null && this.id != 0;
     }
@@ -67,6 +73,7 @@ public abstract class PersistentEntity implements Serializable {
     /**
      * @return a data de inclusao em formato string
      */
+    @JsonIgnore
     public String getInclusionDateAsString() {
         return DateTimeFormatter
                 .ofPattern("dd/MM/yyyy HH:mm")
