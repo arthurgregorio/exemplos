@@ -94,8 +94,10 @@ public class ShiroConfiguration {
                     = new PathMatchingFilterChainResolver();
 
             chainManager.createChain("/index.xhtml", "anon");
+            
             chainManager.createChain("/secured/car/**", "perms[car:access]");
             chainManager.createChain("/secured/owner/**", "perms[owner:access]");
+            
             chainManager.createChain("/secured/**", "authc");
             chainManager.createChain("/api/**", "authcBasic");
             
